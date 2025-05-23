@@ -1,7 +1,7 @@
 ## Prerequesits
-- WSL (if you are running Windows. This is just more reliable than running it barebones on Windows in the long run)
-- Docker
-- Nvidia Cuda (Or the AMD/Intel equivalent depending on your GPU)
+- [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) (if you are running Windows. This is just more reliable than running it barebones on Windows in the long run)
+- [Nvidia Cuda](https://developer.nvidia.com/cuda-downloads) (Or the AMD/Intel equivalent depending on your GPU)
+- [Docker](https://www.docker.com/) (Only a requirement for Open-WebUI)
 ### Installing Ollama
 In a Powershell terminal, run each command hitting enter after each line and letting them run
 - `wsl`
@@ -17,27 +17,27 @@ A full list of available models and their arguments can be found on the Ollama L
 ### Access Ollama on other machines
 To forward WSL ports so that Ollama can be accessed by other machines:
 
-1. In WSL, run the following command to find the IPv4 address
+1. You will first want to find the IPv4 address of your WSL instance. In WSL, run the following command to find the IPv4 address
 
 `hostname -I`
 
-2. Then Run the following command in Powershell (as admin)
+2. Then, in Powershell (as admin) Run the following command
 
 `netsh interface portproxy add v4tov4 listenport=11434 listenaddress=0.0.0.0 connectport=11434 connectaddress={WSL_IPv4_Address}`
 
-To check it works, run
+To check that your change applied properly, run
 
 `netsh interface portproxy show all`
 
 ## Open-WebUI
-This is installed through docker and once installed can be accessed from your_host_ip:3000 (localhost:3000 for example)
+Installed through Docker, once installed can be accessed from your_host_ip:3000 (localhost:3000 for example)
 
 To install Open-WebUI
-1. Pull the latest version:
+1. Pull the latest version of the Docker image:
 
 `docker pull ghcr.io/open-webui/open-webui:main`
 
-2. Start the container again:
+2. Start the container using the recently pulled Docker image:
 
 `docker run -d -p 3000:8080 -v open-webui:/app/backend/data --name open-webui ghcr.io/open-webui/open-webui:main`
 
@@ -48,7 +48,7 @@ To update Open-WebUI
 
 `docker rm -f open-webui`
 
-2. Pull the latest version:
+2. Pull the latest version of the Docker image:
 
 `docker pull ghcr.io/open-webui/open-webui:main`
 
